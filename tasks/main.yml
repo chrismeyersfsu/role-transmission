@@ -1,0 +1,26 @@
+---
+- name: "Get group id for group"
+  shell: "id -g {{ transmission_group }}"
+  register: result_gid
+
+- name: "Get User id for user"
+  shell: "id -u {{ transmission_user }}"
+  register: result_uid
+
+- name: "Lay down transmission config file"
+  template:
+    src: "templates/settings.json.j2"
+    dest: "{{ transmission_config_dir }}/settings.json"
+    owner: "{{ transmission_user }}"
+    group: "{{ transmission_group }}"
+    mode: '0600'
+  sudo: true
+
+- name: "Lay down transmission systemd file"
+  template:
+    src: "templates/docker-transmission.service.j2"
+    dest: "/etc/systemd/system/docker-transmission.service"
+    owner: root
+    group: root
+    mode: '0600'
+  sudo: true

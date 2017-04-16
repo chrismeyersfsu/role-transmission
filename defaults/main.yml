@@ -1,0 +1,17 @@
+---
+transmission_container_name: "transmission"
+transmission_config_dir: "/Media/_transmission/transmission_config/"
+transmission_download_dir: "/Media/_transmission/transmission_incomplete"
+transmission_watch_dir: "/Media/_transmission/transmission_watch"
+transmission_timezone: "America/New_York"
+
+transmission_group: "plex"
+transmission_user: "transmission"
+
+transmission_web_port: 9091
+transmission_api_port: 51413
+#  "rpc-enabled": true,
+#  "rpc-username": "{{ transmission_rpc_user }}",
+#  "rpc-password": "{{ transmission_rpc_pass }}",
+#  "script-torrent-done-filename": "{{ transmission_done_script_file }}"
+#  "script-torrent-done-enabled": true,

@@ -1,0 +1,24 @@
+[Unit]
+Description=Transmission-daemon docker container
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+
+ExecStart=/usr/bin/docker run --rm \
+                              --name={{ transmission_container_name }} \
+                              -v {{ transmission_config_dir }}:/config \
+                              -v {{ transmission_download_dir }}:/downloads \
+                              -v {{ transmission_watch_dir }}:/watch \
+                              -e PGID={{ result_gid.stdout }} -e PUID={{ result_uid.stdout }} \
+                              -e TZ={{ transmission_timezone }} \
+                              -p {{ transmission_web_port }}:9091 -p {{ transmission_api_port }}:51413 \
+                              -p {{ transmission_api_port }}:51413/udp \
+                              linuxserver/transmission
+
+ExecStop=/usr/bin/docker stop {{ transmission_container_name }}
+
+[Install]
+WantedBy=multi-user.target
